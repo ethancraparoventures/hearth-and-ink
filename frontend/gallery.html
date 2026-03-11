@@ -49,7 +49,7 @@
 
         .cta-box { margin-top: 100px; padding: 60px; background-color: var(--cream); border: 1px solid var(--ink); text-align: center; box-shadow: var(--shadow); }
         
-        /* Buttons with Stamp Feel and Fuzzy Textured Edges */
+        /* Buttons with Stamp Feel and Clean Textured Edges */
         .btn {
             display: inline-block;
             padding: 18px 40px;
@@ -61,8 +61,8 @@
             transition: all 0.1s;
             cursor: pointer;
             border-radius: 2px;
-            /* Fuzzy ink-bleed / paper-grain edge effect */
-            box-shadow: 6px 6px 0 var(--rust), 0 0 2px 1px var(--ink);
+            /* Simple hard shadow only, no blur */
+            box-shadow: 6px 6px 0 var(--rust);
             border: 1px solid var(--ink);
         }
         .btn:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--rust); }

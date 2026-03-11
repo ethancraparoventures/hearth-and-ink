@@ -116,7 +116,7 @@
         }
         .result-frame img { width: 100%; height: auto; filter: grayscale(100%) contrast(1.2); }
 
-        /* Buttons with Stamp Feel and Fuzzy Textured Edges */
+        /* Buttons with Stamp Feel and Clean Textured Edges */
         .btn {
             display: inline-block;
             padding: 18px 32px;
@@ -129,13 +129,13 @@
             letter-spacing: 0.1em;
             cursor: pointer;
             position: relative;
-            /* Fuzzy ink-bleed / paper-grain edge effect */
-            box-shadow: 6px 6px 0 var(--rust), 0 0 2px 1px var(--ink);
+            /* Simple hard shadow only, no blur */
+            box-shadow: 6px 6px 0 var(--rust);
             border: 1px solid var(--ink);
             margin-top: 30px;
         }
 
-        .btn-download { background-color: var(--slate-blue); color: var(--parchment); box-shadow: 6px 6px 0 var(--moss), 0 0 2px 1px var(--ink); }
+        .btn-download { background-color: var(--slate-blue); color: var(--parchment); box-shadow: 6px 6px 0 var(--moss); border: 1px solid var(--ink); }
         .btn-download:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--moss); }
 
         .hidden { display: none !important; }
