@@ -9,87 +9,216 @@
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Special+Elite&display=swap" rel="stylesheet">
     <style>
         :root {
-            --ink: #1E1A15; --charcoal: #3B3128; --parchment: #F3E9D6; --cream: #FAF5EB; --linen: #ECE3D0; --dust: #D6C9B0; --rust: #A0614A; --slate-blue: #5A7382; --mist-blue: #8AAAB8; --shadow: 2px 3px 0 rgba(30,26,21,0.08), 0 1px 12px rgba(30,26,21,0.04);
+            --ink: #1E1A15;
+            --charcoal: #3B3128;
+            --parchment: #F3E9D6;
+            --cream: #FAF5EB;
+            --linen: #ECE3D0;
+            --dust: #D6C9B0;
+            --rust: #A0614A;
+            --rust-light: #C9917A;
+            --rust-faint: #E8D0C7;
+            --slate-blue: #5A7382;
+            --mist-blue: #8AAAB8;
+            --fog-blue: #C8DAE2;
             --moss: #4A6350;
+            --lichen-green: #6E8C72;
+            --sage-green: #9AB89E;
+            --pale-sage: #D4E2D5;
+            
+            --border-radius: 2px;
+            --shadow-hard: 4px 4px 0px var(--ink);
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            background-color: var(--parchment); color: var(--ink); font-family: 'Special Elite', cursive; line-height: 1.6; padding: 40px;
+            background-color: var(--parchment);
+            color: var(--ink);
+            font-family: 'Special Elite', cursive;
+            line-height: 1.4;
+            overflow-x: hidden;
+            padding: 20px;
         }
+
+        /* The Non-Negotiable Grain Overlay */
         body::before {
-            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; opacity: 0.055; mix-blend-mode: multiply;
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.055;
+            mix-blend-mode: multiply;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
-        .container { max-width: 1100px; margin: 0 auto; position: relative; }
-        
-        /* Full Site Texture Overlay */
+
+        /* Decorative Large Background "Ink Splashes" */
+        .splash {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.25;
+            pointer-events: none;
+        }
+        .splash-1 { top: -10%; right: -10%; width: 600px; height: 600px; background: var(--mist-blue); }
+        .splash-2 { bottom: -10%; left: -10%; width: 500px; height: 500px; background: var(--lichen-green); }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            border: 1px solid var(--ink);
+            background-color: var(--cream);
+            position: relative;
+            min-height: 100vh;
+            box-shadow: 12px 12px 0px rgba(30,26,21,0.05);
+        }
+
+        /* EXTREME Luxury Cotton Card Stock Texture Overlay */
         .container::after {
             content: "";
             position: absolute;
-            inset: -40px;
-            opacity: 0.75;
+            inset: 0;
+            opacity: 0.75; /* Extreme visibility for tactile stationery feel */
             pointer-events: none;
             background-image: url('https://www.transparenttextures.com/patterns/handmade-paper.png');
             mix-blend-mode: multiply;
             z-index: 1000;
         }
 
-        nav { padding: 0 0 80px 0; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 24px; font-style: italic; text-decoration: none; color: var(--ink); }
-        .section-label { font-family: 'Courier Prime', monospace; font-size: 9px; text-transform: uppercase; color: var(--rust); letter-spacing: 0.42em; opacity: 0.65; display: block; margin-bottom: 2rem; text-align: center; }
-        h2 { font-size: 48px; text-align: center; margin-bottom: 80px; font-family: 'Playfair Display', serif; }
+        /* Ripped Edge Header */
+        nav {
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px dashed var(--dust);
+        }
 
-        .gallery-grid { display: grid; gap: 80px; }
-        .gallery-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; padding-bottom: 80px; border-bottom: 1px dashed var(--dust); }
-        .gallery-pair:last-child { border-bottom: none; }
-        
-        .photo-label, .ink-label { font-family: 'Courier Prime', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; opacity: 0.4; margin-bottom: 15px; display: block; }
-        .img-wrap img { width: 100%; border: 1px solid var(--ink); }
-        .ink-wrap img { filter: grayscale(100%) contrast(1.2); box-shadow: var(--shadow); border: 8px solid white; }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-style: italic;
+            font-weight: 900;
+            text-decoration: none;
+            color: var(--ink);
+            transform: rotate(-1deg);
+            display: inline-block;
+        }
 
-        .cta-box { margin-top: 100px; padding: 60px; background-color: var(--cream); border: 1px solid var(--ink); text-align: center; box-shadow: var(--shadow); }
-        
-        /* Buttons with Stamp Feel and Clean Textured Edges */
+        .nav-links {
+            display: flex; gap: 40px;
+            font-family: 'Courier Prime', monospace;
+            font-size: 11px; text-transform: uppercase; letter-spacing: 0.3em;
+        }
+        .nav-links a { text-decoration: none; color: var(--ink); opacity: 0.6; }
+
+        .gallery-header {
+            padding: 80px 60px 40px;
+            text-align: center;
+            background-image: repeating-linear-gradient(var(--linen) 0px, var(--linen) 1px, transparent 1px, transparent 32px);
+            border-bottom: 1px solid var(--ink);
+        }
+
+        .gallery-grid {
+            padding: 60px;
+            display: grid;
+            gap: 100px;
+        }
+
+        .gallery-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .frame-photo, .frame-ink {
+            background-color: white;
+            padding: 10px;
+            border: 1px solid var(--ink);
+            box-shadow: 10px 10px 0 var(--dust);
+        }
+
+        .frame-ink {
+            box-shadow: 15px 15px 0 var(--charcoal);
+            transform: rotate(1.5deg);
+        }
+
+        .gallery-pair img { width: 100%; display: block; }
+        .frame-ink img { filter: grayscale(100%) contrast(1.1); }
+
+        .cta-section {
+            padding: 100px 60px;
+            text-align: center;
+            border-top: 1px solid var(--ink);
+            background-color: var(--charcoal);
+            color: var(--parchment);
+        }
+
         .btn {
             display: inline-block;
-            padding: 18px 40px;
+            padding: 24px 48px;
             font-family: 'Special Elite', cursive;
             font-size: 16px;
             text-decoration: none;
-            background-color: var(--charcoal);
-            color: var(--parchment);
-            transition: all 0.1s;
-            cursor: pointer;
             border-radius: 2px;
-            /* Simple hard shadow only, no blur */
-            box-shadow: 6px 6px 0 var(--rust);
+            transition: all 0.1s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
             border: 1px solid var(--ink);
+            background-color: var(--cream);
+            color: var(--ink);
+            box-shadow: 6px 6px 0 var(--rust);
         }
         .btn:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--rust); }
+
+        footer { padding: 60px; display: flex; justify-content: space-between; font-family: 'Courier Prime', monospace; font-size: 10px; opacity: 0.5; letter-spacing: 0.4em; }
+
+        @media (max-width: 900px) { .gallery-pair { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
+    <div class="splash splash-1"></div>
+    <div class="splash splash-2"></div>
+
     <div class="container">
-        <nav><a href="index.html" class="logo">Hearth & Ink</a></nav>
-        
-        <span class="section-label">PORTFOLIO</span>
-        <h2>Hand-<i>etched</i> works.</h2>
+        <nav>
+            <a href="index.html" class="logo">The Drawn House.</a>
+            <div class="nav-links">
+                <a href="gallery.html">The Gallery</a>
+                <a href="pricing.html">The Studio</a>
+                <a href="upload.html" style="color: var(--rust); opacity: 1;">Order Yours</a>
+            </div>
+        </nav>
+
+        <div class="gallery-header">
+            <span style="font-family: 'Courier Prime'; font-size: 9px; color: var(--rust); letter-spacing: 0.5em; text-transform: uppercase;">ARTISAN ARCHIVE</span>
+            <h2 style="font-family: 'Playfair Display'; font-size: 84px; margin-top: 20px;">Recent <br><i>Works</i>.</h2>
+        </div>
 
         <div class="gallery-grid">
             <div class="gallery-pair">
-                <div><span class="photo-label">Original Photo</span><div class="img-wrap"><img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&q=80&w=600" alt="House"></div></div>
-                <div><span class="ink-label">Ink Illustration</span><div class="img-wrap ink-wrap"><img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&q=80&w=600" alt="Sketch"></div></div>
+                <div class="frame-photo"><img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&q=80&w=600" alt="House"></div>
+                <div class="frame-ink"><img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&q=80&w=600" alt="Ink"></div>
             </div>
             <div class="gallery-pair">
-                <div><span class="photo-label">Original Photo</span><div class="img-wrap"><img src="https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&q=80&w=600" alt="House"></div></div>
-                <div><span class="ink-label">Ink Illustration</span><div class="img-wrap ink-wrap"><img src="https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&q=80&w=600" alt="Sketch"></div></div>
+                <div class="frame-photo"><img src="https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&q=80&w=600" alt="House"></div>
+                <div class="frame-ink"><img src="https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&q=80&w=600" alt="Ink"></div>
             </div>
         </div>
 
-        <div class="cta-box">
-            <h3 style="font-family: 'Playfair Display'; font-size: 32px; margin-bottom: 20px;">Ready to see yours?</h3>
-            <a href="upload.html" class="btn">Upload Your Home</a>
+        <div class="cta-section">
+            <h3 style="font-family: 'Playfair Display'; font-size: 48px; margin-bottom: 40px;">Your home <br><i>belongs</i> here.</h3>
+            <a href="upload.html" class="btn">Begin Your Commission</a>
         </div>
+
+        <footer>
+            <span>ESTABLISHED MMXXVI</span>
+            <span>HEARTH & INK &bull; ARTISAN STUDIO</span>
+        </footer>
     </div>
 </body>
 </html>

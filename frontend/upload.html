@@ -27,8 +27,7 @@
             --pale-sage: #D4E2D5;
             
             --border-radius: 2px;
-            --card-padding: 30px;
-            --shadow: 2px 3px 0 rgba(30,26,21,0.08), 0 1px 12px rgba(30,26,21,0.04);
+            --shadow-hard: 4px 4px 0px var(--ink);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -37,23 +36,50 @@
             background-color: var(--parchment);
             color: var(--ink);
             font-family: 'Special Elite', cursive;
-            line-height: 1.6;
+            line-height: 1.4;
             overflow-x: hidden;
-            padding: 40px;
+            padding: 20px;
         }
 
+        /* The Non-Negotiable Grain Overlay */
         body::before {
-            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; opacity: 0.055; mix-blend-mode: multiply;
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.055;
+            mix-blend-mode: multiply;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        .container { max-width: 800px; margin: 0 auto; position: relative; }
+        /* Decorative Large Background "Ink Splashes" */
+        .splash {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.25;
+            pointer-events: none;
+        }
+        .splash-1 { top: -10%; right: -10%; width: 600px; height: 600px; background: var(--mist-blue); }
+        .splash-2 { bottom: -10%; left: -10%; width: 500px; height: 500px; background: var(--lichen-green); }
 
-        /* Full Site Texture Overlay */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            border: 1px solid var(--ink);
+            background-color: var(--cream);
+            position: relative;
+            min-height: 100vh;
+            box-shadow: 12px 12px 0px rgba(30,26,21,0.05);
+        }
+
+        /* EXTREME Luxury Cotton Card Stock Texture Overlay */
         .container::after {
             content: "";
             position: absolute;
-            inset: -40px;
+            inset: 0;
             opacity: 0.75;
             pointer-events: none;
             background-image: url('https://www.transparenttextures.com/patterns/handmade-paper.png');
@@ -61,118 +87,133 @@
             z-index: 1000;
         }
 
-        nav { padding: 0 0 60px 0; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 24px; font-style: italic; text-decoration: none; color: var(--ink); }
+        /* Ripped Edge Header */
+        nav {
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px dashed var(--dust);
+        }
 
-        .upload-card {
-            background-color: var(--cream);
-            padding: 60px;
-            border: 1px solid var(--ink);
-            box-shadow: var(--shadow);
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-style: italic;
+            font-weight: 900;
+            text-decoration: none;
+            color: var(--ink);
+            transform: rotate(-1deg);
+            display: inline-block;
+        }
+
+        .nav-links {
+            display: flex; gap: 40px;
+            font-family: 'Courier Prime', monospace;
+            font-size: 11px; text-transform: uppercase; letter-spacing: 0.3em;
+        }
+        .nav-links a { text-decoration: none; color: var(--ink); opacity: 0.6; }
+
+        .content-area {
+            padding: 80px 60px;
+            background-image: repeating-linear-gradient(var(--linen) 0px, var(--linen) 1px, transparent 1px, transparent 32px);
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
-            position: relative;
         }
 
-        .drop-zone {
-            border: 2px dashed var(--rust-light);
-            padding: 60px;
-            background-color: var(--linen);
+        .upload-zone {
+            width: 100%;
+            max-width: 600px;
+            border: 2px dashed var(--dust);
+            background-color: white;
+            padding: 80px 40px;
+            margin-top: 40px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            box-shadow: 10px 10px 0px var(--charcoal);
+            transition: all 0.2s;
         }
+        .upload-zone:hover { border-color: var(--rust); background-color: var(--parchment); }
 
-        .drop-zone:hover {
-            border-color: var(--rust);
-            background-color: var(--parchment);
-        }
-
-        .drop-zone p { font-size: 18px; margin-bottom: 10px; }
-        .drop-zone span { font-family: 'Courier Prime', monospace; font-size: 11px; text-transform: uppercase; opacity: 0.5; }
-
-        /* Processing State */
-        #processing { display: none; margin-top: 40px; }
-        .progress-bar {
-            width: 100%; height: 12px; background-color: var(--linen); margin-bottom: 20px; position: relative; overflow: hidden;
-        }
-        .progress-inner {
-            width: 0%; height: 100%;
-            background: repeating-linear-gradient(45deg, var(--slate-blue), var(--slate-blue) 10px, var(--mist-blue) 10px, var(--mist-blue) 20px);
-            background-size: 40px 40px;
-            animation: move-stripes 2s linear infinite;
-        }
-        @keyframes move-stripes { from { background-position: 0 0; } to { background-position: 40px 0; } }
-
-        #status-text { font-family: 'Courier Prime', monospace; font-size: 12px; color: var(--rust); text-transform: uppercase; letter-spacing: 0.2em; height: 1.5em; }
-
-        /* Results Card */
-        #result { 
-            display: none; margin-top: 60px; 
-            transform: scaleY(0.96); opacity: 0; transition: all 0.38s ease-out;
-        }
-        #result.visible { transform: scaleY(1); opacity: 1; }
-
-        .result-frame {
-            background-color: white; padding: 20px; border: 1px solid var(--ink); box-shadow: 10px 10px 40px rgba(30,26,21,0.15); position: relative;
-        }
-        .result-frame img { width: 100%; height: auto; filter: grayscale(100%) contrast(1.2); }
-
-        /* Buttons with Stamp Feel and Clean Textured Edges */
         .btn {
             display: inline-block;
-            padding: 18px 32px;
+            padding: 24px 48px;
             font-family: 'Special Elite', cursive;
-            font-size: 14px;
+            font-size: 16px;
             text-decoration: none;
             border-radius: 2px;
             transition: all 0.1s ease;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             cursor: pointer;
-            position: relative;
-            /* Simple hard shadow only, no blur */
-            box-shadow: 6px 6px 0 var(--rust);
             border: 1px solid var(--ink);
-            margin-top: 30px;
         }
 
-        .btn-download { background-color: var(--slate-blue); color: var(--parchment); box-shadow: 6px 6px 0 var(--moss); border: 1px solid var(--ink); }
-        .btn-download:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--moss); }
+        .btn-primary { background-color: var(--ink); color: var(--parchment); box-shadow: 6px 6px 0 var(--rust); }
+        .btn-download { background-color: var(--slate-blue); color: var(--parchment); box-shadow: 6px 6px 0 var(--moss); }
+
+        /* Processing/Result styles... simplified for consistency */
+        #processing { display: none; width: 100%; max-width: 600px; padding: 60px; }
+        .progress-bar { width: 100%; height: 12px; background-color: var(--linen); margin-bottom: 20px; overflow: hidden; border: 1px solid var(--ink); }
+        .progress-inner { width: 0%; height: 100%; background: repeating-linear-gradient(45deg, var(--slate-blue), var(--slate-blue) 10px, var(--mist-blue) 10px, var(--mist-blue) 20px); animation: move-stripes 2s linear infinite; }
+        @keyframes move-stripes { from { background-position: 0 0; } to { background-position: 40px 0; } }
+
+        #result { display: none; margin-top: 60px; width: 100%; max-width: 800px; }
+        .result-frame { background-color: white; padding: 15px; border: 1px solid var(--ink); box-shadow: 20px 20px 0px var(--charcoal); transform: rotate(1deg); }
+        .result-frame img { width: 100%; filter: grayscale(100%) contrast(1.1); border: 1px solid var(--dust); }
+
+        footer { padding: 60px; display: flex; justify-content: space-between; font-family: 'Courier Prime', monospace; font-size: 10px; opacity: 0.5; letter-spacing: 0.4em; }
 
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
+    <div class="splash splash-1"></div>
+    <div class="splash splash-2"></div>
+
     <div class="container">
         <nav>
-            <a href="index.html" class="logo">Hearth & Ink</a>
+            <a href="index.html" class="logo">The Drawn House.</a>
+            <div class="nav-links">
+                <a href="gallery.html">The Gallery</a>
+                <a href="pricing.html">The Studio</a>
+                <a href="upload.html" style="color: var(--rust); opacity: 1;">Order Yours</a>
+            </div>
         </nav>
 
-        <div id="upload-stage" class="upload-card">
-            <h2 style="margin-bottom: 10px;">Send us your home.</h2>
-            <p style="font-size: 14px; opacity: 0.6; margin-bottom: 40px;">Select a clear photo of the front of your residence.</p>
-            
-            <div id="drop-zone" class="drop-zone">
-                <p>Drop your photo here</p>
-                <span>or click to browse locally</span>
-                <input type="file" id="file-input" class="hidden" accept="image/*">
+        <div class="content-area">
+            <div id="upload-stage">
+                <span style="font-family: 'Courier Prime'; font-size: 9px; color: var(--rust); letter-spacing: 0.5em; text-transform: uppercase;">PORTRAIT COMMISSION</span>
+                <h2 style="font-family: 'Playfair Display'; font-size: 64px; margin: 20px 0;">Send us your home.</h2>
+                <div id="drop-zone" class="upload-zone">
+                    <p style="font-size: 20px;">Drop your photo here</p>
+                    <p style="font-family: 'Courier Prime'; font-size: 11px; opacity: 0.4; margin-top: 10px; text-transform: uppercase;">or click to browse</p>
+                    <input type="file" id="file-input" class="hidden" accept="image/*">
+                </div>
+            </div>
+
+            <div id="processing">
+                <h2 style="font-family: 'Playfair Display'; font-size: 42px; margin-bottom: 30px;">Inking your memory...</h2>
+                <div class="progress-bar"><div class="progress-inner" id="progress"></div></div>
+                <div id="status-text" style="font-family: 'Courier Prime'; font-size: 12px; color: var(--rust); text-transform: uppercase; letter-spacing: 0.2em;"></div>
+            </div>
+
+            <div id="result">
+                <div class="result-frame">
+                    <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&q=80&w=800" alt="Result">
+                </div>
+                <div style="margin-top: 60px;">
+                    <a href="pricing.html" class="btn btn-download">Download Masterpiece &mdash; $49</a>
+                </div>
             </div>
         </div>
 
-        <div id="processing" class="upload-card">
-            <h2 style="margin-bottom: 10px;">Inking your memory...</h2>
-            <div class="progress-bar"><div class="progress-inner" id="progress"></div></div>
-            <div id="status-text"></div>
-        </div>
-
-        <div id="result">
-            <div class="result-frame">
-                <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&q=80&w=800" alt="Resulting Illustration">
-            </div>
-            <div style="text-align: center;">
-                <a href="pricing.html" class="btn btn-download">Download High-Res — $49</a>
-                <p style="margin-top: 20px; font-size: 10px; font-family: 'Courier Prime'; opacity: 0.4;">SERIES 02 / BUNGALOW RENDER / MMXXVI</p>
-            </div>
-        </div>
+        <footer>
+            <span>ESTABLISHED MMXXVI</span>
+            <span>HEARTH & INK &bull; ARTISAN STUDIO</span>
+        </footer>
     </div>
 
     <script>
@@ -184,59 +225,32 @@
         const statusText = document.getElementById('status-text');
         const result = document.getElementById('result');
 
-        const statuses = [
-            "Extracting architectural DNA...",
-            "Tracing structural outlines...",
-            "Applying artisan soul pass...",
-            "Inking hand-drawn textures...",
-            "Finalizing your masterpiece..."
-        ];
+        const statuses = ["Extracting DNA...", "Tracing structure...", "Applying soul pass...", "Finalizing ink..."];
 
         function typeWriter(text, i, callback) {
             if (i < text.length) {
                 statusText.innerHTML = text.substring(0, i + 1);
                 setTimeout(() => typeWriter(text, i + 1, callback), 35);
-            } else if (callback) {
-                setTimeout(callback, 800);
-            }
+            } else if (callback) setTimeout(callback, 800);
         }
 
         function runStatusLoop(index) {
             if (index < statuses.length) {
-                typeWriter(statuses[index], 0, () => {
-                    runStatusLoop(index + 1);
-                });
+                typeWriter(statuses[index], 0, () => runStatusLoop(index + 1));
                 progress.style.width = ((index + 1) / statuses.length) * 100 + '%';
             } else {
-                showResult();
+                processing.style.display = 'none';
+                result.style.display = 'block';
             }
         }
 
-        function showResult() {
-            processing.style.display = 'none';
-            result.style.display = 'block';
-            setTimeout(() => {
-                result.classList.add('visible');
-            }, 50);
-        }
-
         dropZone.addEventListener('click', () => fileInput.click());
-
         fileInput.addEventListener('change', () => {
             if (fileInput.files.length) {
                 uploadStage.style.display = 'none';
                 processing.style.display = 'block';
                 runStatusLoop(0);
             }
-        });
-
-        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.backgroundColor = 'var(--parchment)'; });
-        dropZone.addEventListener('dragleave', () => { dropZone.style.backgroundColor = 'var(--linen)'; });
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadStage.style.display = 'none';
-            processing.style.display = 'block';
-            runStatusLoop(0);
         });
     </script>
 </body>

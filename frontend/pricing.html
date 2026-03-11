@@ -3,27 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pricing | Hearth & Ink</title>
+    <title>The Studio | Hearth & Ink</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Special+Elite&display=swap" rel="stylesheet">
     <style>
         :root {
-            --ink: #1E1A15; --charcoal: #3B3128; --parchment: #F3E9D6; --cream: #FAF5EB; --linen: #ECE3D0; --dust: #D6C9B0; --rust: #A0614A; --shadow: 2px 3px 0 rgba(30,26,21,0.08), 0 1px 12px rgba(30,26,21,0.04);
+            --ink: #1E1A15;
+            --charcoal: #3B3128;
+            --parchment: #F3E9D6;
+            --cream: #FAF5EB;
+            --linen: #ECE3D0;
+            --dust: #D6C9B0;
+            --rust: #A0614A;
+            --rust-light: #C9917A;
+            --rust-faint: #E8D0C7;
+            --slate-blue: #5A7382;
+            --mist-blue: #8AAAB8;
+            --fog-blue: #C8DAE2;
+            --moss: #4A6350;
+            --lichen-green: #6E8C72;
+            --sage-green: #9AB89E;
+            --pale-sage: #D4E2D5;
+            
+            --border-radius: 2px;
+            --shadow-hard: 4px 4px 0px var(--ink);
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--parchment); color: var(--ink); font-family: 'Special Elite', cursive; line-height: 1.6; padding: 40px; }
+
+        body {
+            background-color: var(--parchment);
+            color: var(--ink);
+            font-family: 'Special Elite', cursive;
+            line-height: 1.4;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* The Non-Negotiable Grain Overlay */
         body::before {
-            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; opacity: 0.055; mix-blend-mode: multiply;
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.055;
+            mix-blend-mode: multiply;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
-        .container { max-width: 900px; margin: 0 auto; position: relative; }
-        
-        /* Full Site Texture Overlay */
+
+        /* Decorative Large Background "Ink Splashes" */
+        .splash {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.25;
+            pointer-events: none;
+        }
+        .splash-1 { top: -10%; right: -10%; width: 600px; height: 600px; background: var(--mist-blue); }
+        .splash-2 { bottom: -10%; left: -10%; width: 500px; height: 500px; background: var(--lichen-green); }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            border: 1px solid var(--ink);
+            background-color: var(--cream);
+            position: relative;
+            min-height: 100vh;
+            box-shadow: 12px 12px 0px rgba(30,26,21,0.05);
+        }
+
+        /* EXTREME Luxury Cotton Card Stock Texture Overlay */
         .container::after {
             content: "";
             position: absolute;
-            inset: -40px;
+            inset: 0;
             opacity: 0.75;
             pointer-events: none;
             background-image: url('https://www.transparenttextures.com/patterns/handmade-paper.png');
@@ -31,65 +87,131 @@
             z-index: 1000;
         }
 
-        nav { padding: 0 0 80px 0; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 24px; font-style: italic; text-decoration: none; color: var(--ink); }
-        .section-label { font-family: 'Courier Prime', monospace; font-size: 9px; text-transform: uppercase; color: var(--rust); letter-spacing: 0.42em; opacity: 0.65; display: block; margin-bottom: 2rem; text-align: center; }
-        h2 { font-size: 48px; text-align: center; margin-bottom: 80px; font-family: 'Playfair Display', serif; }
+        /* Ripped Edge Header */
+        nav {
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px dashed var(--dust);
+        }
 
-        .pricing-grid { display: grid; grid-template-columns: 1fr; gap: 40px; }
-        .pricing-card { background-color: var(--cream); border: 1px solid var(--ink); padding: 60px; box-shadow: var(--shadow); text-align: center; position: relative; overflow: hidden; }
-        .pricing-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background-color: var(--rust); }
-        
-        .price { font-size: 64px; font-family: 'Playfair Display', serif; color: var(--charcoal); margin: 20px 0; }
-        .price span { font-size: 24px; opacity: 0.4; }
-        
-        .features-list { list-style: none; margin: 40px 0; }
-        .features-list li { padding: 10px 0; border-bottom: 1px dotted var(--dust); font-size: 14px; opacity: 0.8; }
-        .features-list li:last-child { border-bottom: none; }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-style: italic;
+            font-weight: 900;
+            text-decoration: none;
+            color: var(--ink);
+            transform: rotate(-1deg);
+            display: inline-block;
+        }
 
-        /* Buttons with Stamp Feel and Clean Textured Edges */
+        .nav-links {
+            display: flex; gap: 40px;
+            font-family: 'Courier Prime', monospace;
+            font-size: 11px; text-transform: uppercase; letter-spacing: 0.3em;
+        }
+        .nav-links a { text-decoration: none; color: var(--ink); opacity: 0.6; }
+
+        .studio-header {
+            padding: 80px 60px 60px;
+            background-image: repeating-linear-gradient(var(--linen) 0px, var(--linen) 1px, transparent 1px, transparent 32px);
+            border-bottom: 1px solid var(--ink);
+            text-align: center;
+        }
+
+        .pricing-section {
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .pricing-card {
+            width: 100%;
+            max-width: 600px;
+            background-color: white;
+            border: 1px solid var(--ink);
+            padding: 60px;
+            text-align: center;
+            box-shadow: 15px 15px 0px var(--dust);
+            position: relative;
+        }
+
+        .pricing-card::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 8px; background-color: var(--rust);
+        }
+
+        .price {
+            font-family: 'Playfair Display', serif;
+            font-size: 84px;
+            color: var(--charcoal);
+            margin: 30px 0;
+        }
+        .price span { font-size: 32px; opacity: 0.3; }
+
+        .features-list { list-style: none; margin: 40px 0; text-align: left; max-width: 300px; margin-left: auto; margin-right: auto; }
+        .features-list li { padding: 12px 0; border-bottom: 1px dotted var(--dust); font-size: 16px; }
+
         .btn {
             display: inline-block;
-            padding: 18px 40px;
+            padding: 24px 48px;
             font-family: 'Special Elite', cursive;
             font-size: 16px;
             text-decoration: none;
-            background-color: var(--charcoal);
-            color: var(--parchment);
-            transition: all 0.1s;
-            cursor: pointer;
             border-radius: 2px;
-            /* Simple hard shadow only, no blur */
-            box-shadow: 6px 6px 0 var(--rust);
+            transition: all 0.1s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
             border: 1px solid var(--ink);
+            background-color: var(--ink);
+            color: var(--parchment);
+            box-shadow: 6px 6px 0 var(--rust);
         }
         .btn:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--rust); }
+
+        footer { padding: 60px; display: flex; justify-content: space-between; font-family: 'Courier Prime', monospace; font-size: 10px; opacity: 0.5; letter-spacing: 0.4em; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <nav><a href="index.html" class="logo">Hearth & Ink</a></nav>
-        
-        <span class="section-label">COMMISSIONS</span>
-        <h2>Simple, <i>honest</i> pricing.</h2>
+    <div class="splash splash-1"></div>
+    <div class="splash splash-2"></div>
 
-        <div class="pricing-grid">
+    <div class="container">
+        <nav>
+            <a href="index.html" class="logo">The Drawn House.</a>
+            <div class="nav-links">
+                <a href="gallery.html">The Gallery</a>
+                <a href="pricing.html">The Studio</a>
+                <a href="upload.html" style="color: var(--rust); opacity: 1;">Order Yours</a>
+            </div>
+        </nav>
+
+        <div class="studio-header">
+            <span style="font-family: 'Courier Prime'; font-size: 9px; color: var(--rust); letter-spacing: 0.5em; text-transform: uppercase;">ARTISAN COMMISSIONS</span>
+            <h2 style="font-family: 'Playfair Display'; font-size: 84px; margin-top: 20px;">Simple, <br><i>Honest</i>.</h2>
+        </div>
+
+        <div class="pricing-section">
             <div class="pricing-card">
-                <span class="section-label">DIGITAL MASTERPIECE</span>
+                <span style="font-family: 'Courier Prime'; font-size: 10px; opacity: 0.5; letter-spacing: 0.2em; text-transform: uppercase;">THE DIGITAL MASTERPIECE</span>
                 <div class="price">$49<span>.00</span></div>
                 <ul class="features-list">
-                    <li>One high-resolution digital illustration</li>
-                    <li>24-hour delivery to your inbox</li>
-                    <li>Print-ready file (up to 24" x 36")</li>
-                    <li>Full personal use license</li>
+                    <li>&bull; One soulful illustration</li>
+                    <li>&bull; 24-hour digital delivery</li>
+                    <li>&bull; Print-ready file (24x36)</li>
+                    <li>&bull; Lifetime personal license</li>
                 </ul>
-                <a href="upload.html" class="btn">Start Your Sketch</a>
+                <a href="upload.html" class="btn">Begin Yours</a>
             </div>
         </div>
-        
-        <div style="text-align: center; margin-top: 60px;">
-            <p style="font-family: 'Courier Prime'; font-size: 10px; opacity: 0.5; text-transform: uppercase; letter-spacing: 0.2em;">&bull; Hand-crafted with soul &bull; Delivered with care &bull;</p>
-        </div>
+
+        <footer>
+            <span>ESTABLISHED MMXXVI</span>
+            <span>HEARTH & INK &bull; ARTISAN STUDIO</span>
+        </footer>
     </div>
 </body>
 </html>
