@@ -204,7 +204,7 @@
             border: 1px solid var(--dust);
         }
 
-        /* Buttons with Stamp Feel and Ripped Texture */
+        /* Buttons with Stamp Feel and Fuzzy Textured Edges */
         .btn {
             display: inline-block;
             padding: 24px 48px;
@@ -217,13 +217,9 @@
             letter-spacing: 0.1em;
             cursor: pointer;
             position: relative;
-            /* Ripped edge look for the button itself */
-            clip-path: polygon(
-                0% 2%, 5% 0%, 10% 3%, 15% 1%, 20% 4%, 25% 2%, 30% 5%, 35% 2%, 40% 4%, 45% 1%, 50% 3%, 55% 0%, 60% 4%, 65% 2%, 70% 5%, 75% 2%, 80% 4%, 85% 1%, 90% 3%, 95% 0%, 100% 2%,
-                98% 5%, 100% 10%, 97% 15%, 100% 20%, 98% 25%, 100% 30%, 97% 35%, 100% 40%, 98% 45%, 100% 50%, 97% 55%, 100% 60%, 98% 65%, 100% 70%, 97% 75%, 100% 80%, 98% 85%, 100% 90%, 97% 95%, 100% 100%,
-                95% 98%, 90% 100%, 85% 97%, 80% 100%, 75% 98%, 70% 100%, 65% 97%, 60% 100%, 55% 98%, 50% 100%, 45% 97%, 40% 100%, 35% 98%, 30% 100%, 25% 97%, 20% 100%, 15% 98%, 10% 100%, 5% 97%, 0% 100%,
-                2% 95%, 0% 90%, 3% 85%, 1% 80%, 4% 75%, 2% 70%, 5% 65%, 2% 60%, 4% 55%, 1% 50%, 3% 45%, 0% 40%, 4% 35%, 2% 30%, 5% 25%, 2% 20%, 4% 15%, 1% 10%, 3% 5%, 0% 0%
-            );
+            /* Fuzzy ink-bleed / paper-grain edge effect */
+            box-shadow: 6px 6px 0 var(--rust), 0 0 2px 1px var(--ink);
+            border: 1px solid var(--ink);
         }
 
         .btn-primary {
