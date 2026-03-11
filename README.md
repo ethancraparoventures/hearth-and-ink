@@ -14,10 +14,10 @@
 - [x] Artistic Soul Pass (Hand-drawn character)
 - [x] Proof of Concept (Craftsman house test)
 
-## 🚀 Phase 2: The Landing Page (UP NEXT)
+## 🚀 Phase 2: The Landing Page (RESTARTING)
+- [ ] Reboot frontend from scratch
+- [ ] Finalize "Cozy Typewriter" aesthetic (v2)
 - [ ] Simple "Upload & Pay" flow
-- [ ] Portfolio gallery (using our test results)
-- [ ] "Realtor Special" pricing tier
 
 ## 📈 Phase 3: Distribution
 - [ ] Reach out to high-level marketing connections
