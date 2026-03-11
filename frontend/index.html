@@ -27,32 +27,25 @@
             --pale-sage: #D4E2D5;
             
             --border-radius: 2px;
-            --card-padding: 30px;
-            --shadow: 2px 3px 0 rgba(30,26,21,0.08), 0 1px 12px rgba(30,26,21,0.04);
+            --shadow-hard: 4px 4px 0px var(--ink);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--parchment);
             color: var(--ink);
-            font-family: 'Special Elite', system-ui, serif;
-            line-height: 1.6;
+            font-family: 'Special Elite', cursive;
+            line-height: 1.4;
             overflow-x: hidden;
+            padding: 20px;
         }
 
-        /* Paper Grain Overlay */
+        /* The Non-Negotiable Grain Overlay */
         body::before {
             content: "";
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
             z-index: 9999;
             opacity: 0.055;
@@ -60,394 +53,314 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 400;
+        /* Decorative Large Background "Ink Splashes" */
+        .splash {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.25;
+            pointer-events: none;
         }
-
-        .section-label {
-            font-family: 'Courier Prime', monospace;
-            font-size: 9px;
-            text-transform: uppercase;
-            color: var(--rust);
-            letter-spacing: 0.42em;
-            opacity: 0.65;
-            display: block;
-            margin-bottom: 1rem;
-        }
+        .splash-1 { top: -10%; right: -10%; width: 600px; height: 600px; background: var(--mist-blue); }
+        .splash-2 { bottom: -10%; left: -10%; width: 500px; height: 500px; background: var(--lichen-green); }
+        .splash-3 { top: 40%; left: -5%; width: 300px; height: 300px; background: var(--rust-faint); }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 40px;
+            border: 1px solid var(--ink);
+            background-color: var(--cream);
+            position: relative;
+            min-height: 100vh;
+            box-shadow: 12px 12px 0px rgba(30,26,21,0.05);
         }
 
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 18px 32px;
-            font-family: 'Special Elite', cursive;
-            font-size: 14px;
-            text-decoration: none;
-            cursor: pointer;
-            border-radius: var(--border-radius);
-            transition: all 0.2s ease;
-            border: none;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background-color: var(--charcoal);
-            color: var(--parchment);
-            box-shadow: 3px 3px 0 var(--rust);
-        }
-
-        .btn-primary:hover {
-            transform: translate(1px, 1px);
-            box-shadow: 1px 1px 0 var(--rust);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--charcoal);
-            border: 1px dashed var(--charcoal);
-            box-shadow: 3px 3px 0 var(--dust);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--linen);
-            transform: translate(1px, 1px);
-            box-shadow: 1px 1px 0 var(--dust);
-        }
-
-        /* Navigation */
+        /* Ripped Edge Header */
         nav {
-            padding: 40px 0;
+            padding: 40px 60px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 2px dashed var(--dust);
         }
 
         .logo {
             font-family: 'Playfair Display', serif;
-            font-size: 24px;
+            font-size: 32px;
             font-style: italic;
+            font-weight: 900;
             text-decoration: none;
             color: var(--ink);
+            transform: rotate(-1deg);
+            display: inline-block;
         }
 
-        nav .links {
+        .nav-links {
             display: flex;
-            gap: 30px;
-        }
-
-        nav .links a {
+            gap: 40px;
             font-family: 'Courier Prime', monospace;
             font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            text-decoration: none;
-            color: var(--ink);
-            opacity: 0.7;
-        }
-
-        nav .links a:hover {
-            opacity: 1;
-            color: var(--rust);
-        }
-
-        /* Hero Section */
-        header {
-            padding: 80px 0;
-            display: grid;
-            grid-template-cols: 1.2fr 0.8fr;
-            gap: 60px;
-            align-items: center;
-            position: relative;
-        }
-
-        header::before {
-            content: "";
-            position: absolute;
-            top: -100px;
-            right: -100px;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, var(--mist-blue) 0%, transparent 70%);
-            opacity: 0.1;
-            z-index: -1;
-        }
-
-        .hero-text h2 {
-            font-size: 72px;
-            line-height: 1.1;
-            margin-bottom: 24px;
-            letter-spacing: -0.02em;
-        }
-
-        .hero-text h2 i {
-            color: var(--rust);
-        }
-
-        .hero-text p {
-            font-size: 18px;
-            max-width: 480px;
-            margin-bottom: 40px;
-            color: var(--charcoal);
-            opacity: 0.9;
-        }
-
-        .hero-image {
-            position: relative;
-        }
-
-        .illustration-card {
-            background-color: var(--cream);
-            padding: 15px;
-            border: 1px solid var(--dust);
-            box-shadow: var(--shadow);
-            transform: rotate(2deg);
-            position: relative;
-            background-image: repeating-linear-gradient(var(--linen) 0px, var(--linen) 1px, transparent 1px, transparent 28px);
-            background-size: 100% 28px;
-        }
-
-        .illustration-card img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border: 1px solid var(--dust);
-            filter: grayscale(100%) contrast(1.1);
-        }
-
-        .illustration-card .caption {
-            font-family: 'Courier Prime', monospace;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-top: 15px;
-            text-align: center;
-            opacity: 0.5;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 120px 0;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-
-        .feature-card {
-            padding: var(--card-padding);
-            background-color: var(--cream);
-            border: 1px solid var(--dust);
-            box-shadow: var(--shadow);
-            position: relative;
-        }
-
-        .feature-card .number {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 48px;
-            color: var(--mist-blue);
-            line-height: 1;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .feature-card h3 {
-            font-size: 24px;
-            margin-bottom: 16px;
-        }
-
-        .feature-card p {
-            font-size: 14px;
-            opacity: 0.8;
-        }
-
-        /* Gallery Preview */
-        .gallery-preview {
-            padding: 80px 0;
-            text-align: center;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-            margin-top: 60px;
-        }
-
-        .gallery-item {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .gallery-item .photo img, .gallery-item .illustration img {
-            width: 100%;
-            height: auto;
-            border: 1px solid var(--dust);
-        }
-
-        .gallery-item .illustration img {
-            filter: grayscale(100%) contrast(1.2);
-            box-shadow: var(--shadow);
-        }
-
-        /* Footer */
-        footer {
-            padding: 80px 0;
-            border-top: 1px dashed var(--dust);
-            margin-top: 80px;
-            text-align: center;
-        }
-
-        .footer-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 20px;
-            font-style: italic;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .copyright {
-            font-family: 'Courier Prime', monospace;
-            font-size: 10px;
-            opacity: 0.5;
             text-transform: uppercase;
             letter-spacing: 0.3em;
         }
 
-        /* Reveal Animations */
-        .reveal {
-            opacity: 0;
-            transform: translateY(14px);
-            transition: all 0.6s ease-out;
+        .nav-links a { text-decoration: none; color: var(--ink); opacity: 0.6; transition: opacity 0.2s; }
+        .nav-links a:hover { opacity: 1; color: var(--rust); }
+
+        /* Massive Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 70vh;
+            border-bottom: 1px solid var(--ink);
         }
 
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .hero-content {
+            padding: 80px 60px;
+            border-right: 1px solid var(--ink);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-image: repeating-linear-gradient(var(--linen) 0px, var(--linen) 1px, transparent 1px, transparent 32px);
         }
 
-        /* SVG Draw Animation */
-        #hero-svg {
+        .section-tag {
+            font-family: 'Courier Prime', monospace;
+            font-size: 9px;
+            color: var(--rust);
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .hero h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 84px;
+            line-height: 0.9;
+            margin-bottom: 30px;
+            letter-spacing: -0.04em;
+        }
+
+        .hero h2 i {
+            color: var(--slate-blue);
+            font-weight: 400;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 400px;
+            margin-bottom: 50px;
+            opacity: 0.8;
+        }
+
+        .hero-visual {
+            background-color: var(--linen);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-visual::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            box-shadow: inset 0 0 100px rgba(30,26,21,0.1);
+            pointer-events: none;
+        }
+
+        .main-frame {
+            background-color: white;
+            padding: 10px;
+            box-shadow: 15px 15px 0px var(--charcoal);
+            transform: rotate(2deg);
+            max-width: 100%;
+            transition: transform 0.4s ease;
+        }
+        .main-frame:hover { transform: rotate(0deg); }
+
+        .main-frame img {
             width: 100%;
             height: auto;
+            display: block;
+            filter: grayscale(100%) contrast(1.1) brightness(1.05);
+            border: 1px solid var(--dust);
         }
 
-        #hero-svg path {
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
-            animation: draw 1.8s ease-in-out forwards;
+        /* Buttons with Stamp Feel */
+        .btn {
+            display: inline-block;
+            padding: 24px 48px;
+            font-family: 'Special Elite', cursive;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: all 0.1s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
         }
 
-        @keyframes draw {
-            to {
-                stroke-dashoffset: 0;
-            }
+        .btn-primary {
+            background-color: var(--ink);
+            color: var(--parchment);
+            box-shadow: 6px 6px 0 var(--rust);
+        }
+        .btn-primary:active {
+            transform: translate(3px, 3px);
+            box-shadow: 2px 2px 0 var(--rust);
         }
 
-        @media (max-width: 768px) {
-            header, .features, .gallery-grid {
-                grid-template-columns: 1fr;
-            }
-            .hero-text h2 {
-                font-size: 48px;
-            }
+        /* Grid of "Soul" Features */
+        .soul-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-bottom: 1px solid var(--ink);
+        }
+
+        .soul-card {
+            padding: 60px;
+            border-right: 1px solid var(--ink);
+            transition: background 0.3s;
+        }
+        .soul-card:last-child { border-right: none; }
+        .soul-card:hover { background-color: var(--pale-sage); }
+
+        .soul-card span {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 42px;
+            color: var(--mist-blue);
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .soul-card h3 { font-size: 20px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .soul-card p { font-size: 14px; opacity: 0.7; }
+
+        /* Statement Section */
+        .statement {
+            padding: 100px 60px;
+            text-align: center;
+            background-color: var(--charcoal);
+            color: var(--parchment);
+            position: relative;
+        }
+
+        .statement h3 {
+            font-size: 48px;
+            font-family: 'Playfair Display', serif;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.2;
+        }
+
+        .statement h3 i { color: var(--rust-light); }
+
+        /* Floating Stamps */
+        .stamp {
+            position: absolute;
+            width: 120px; height: 120px;
+            border: 2px solid var(--rust);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--rust);
+            font-weight: bold;
+            transform: rotate(-15deg);
+            opacity: 0.4;
+            padding: 20px;
+        }
+
+        .stamp-1 { top: -40px; right: 40px; }
+
+        /* Footer */
+        footer {
+            padding: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Courier Prime', monospace;
+            font-size: 10px;
+            opacity: 0.5;
+            letter-spacing: 0.4em;
+        }
+
+        @media (max-width: 900px) {
+            .hero, .soul-grid { grid-template-columns: 1fr; }
+            .hero h2 { font-size: 60px; }
+            .hero-content { border-right: none; border-bottom: 1px solid var(--ink); }
         }
     </style>
 </head>
 <body>
+    <div class="splash splash-1"></div>
+    <div class="splash splash-2"></div>
+    <div class="splash splash-3"></div>
+
     <div class="container">
         <nav>
-            <a href="index.html" class="logo text-reveal">Hearth & Ink</a>
-            <div class="links">
-                <a href="gallery.html">Gallery</a>
-                <a href="pricing.html">Process</a>
-                <a href="upload.html" style="color: var(--rust); opacity: 1;">Start Yours</a>
+            <a href="index.html" class="logo">The Drawn House.</a>
+            <div class="nav-links">
+                <a href="gallery.html">The Gallery</a>
+                <a href="pricing.html">The Studio</a>
+                <a href="upload.html" style="color: var(--rust); opacity: 1;">Order Yours</a>
             </div>
         </nav>
 
-        <header>
-            <div class="hero-text">
-                <span class="section-label reveal">ESTABLISHED MMXXVI</span>
-                <h2 class="reveal">Your home, <br><i>immortalized</i> <br>in ink.</h2>
-                <p class="reveal">We turn your photographs into beautiful, hand-etched architectural illustrations. A one-of-a-kind keepsake for the place you love most.</p>
-                <div class="reveal" style="transition-delay: 200ms;">
-                    <a href="upload.html" class="btn btn-primary">Upload Your Home</a>
+        <section class="hero">
+            <div class="hero-content">
+                <span class="section-tag">Portrait Studio &bull; Vol. 26</span>
+                <h2>Every <br><i>line</i> <br>tells a <br>story.</h2>
+                <p>We translate your residence into a hand-etched architectural illustration. Warm, imperfect, and remarkably human.</p>
+                <div>
+                    <a href="upload.html" class="btn btn-primary">Begin Your Commission</a>
                 </div>
             </div>
-            <div class="hero-image reveal" style="transition-delay: 400ms;">
-                <div class="illustration-card">
-                    <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&q=80&w=800" alt="Sample Illustration">
-                    <div class="caption">Series 01 / Maryland Cottage</div>
+            <div class="hero-visual">
+                <div class="main-frame">
+                    <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&q=80&w=800" alt="Home Portrait">
                 </div>
-            </div>
-        </header>
-
-        <section class="features">
-            <div class="feature-card reveal">
-                <span class="number">01</span>
-                <h3>The DNA Trace</h3>
-                <p>We extract the unique architectural lines of your specific home, ensuring every gable and window pane is precisely captured.</p>
-            </div>
-            <div class="feature-card reveal" style="transition-delay: 80ms;">
-                <span class="number">02</span>
-                <h3>The Soul Pass</h3>
-                <p>Our engine applies wobbly lines and variable ink weights for that authentic, hand-sketched artisan feel.</p>
-            </div>
-            <div class="feature-card reveal" style="transition-delay: 160ms;">
-                <span class="number">03</span>
-                <h3>Digital Delivery</h3>
-                <p>Your print-ready masterpiece is delivered to your inbox within 24 hours. Ready to frame, gift, or keep forever.</p>
+                <div class="stamp stamp-1">Guaranteed <br> Hand-Drawn <br> Feel</div>
             </div>
         </section>
 
-        <section class="gallery-preview">
-            <span class="section-label reveal">RECENT COMMISSIONS</span>
-            <h2 class="reveal">From photo to <i>etched</i> memory.</h2>
-            
-            <div class="gallery-grid">
-                <div class="gallery-item reveal">
-                    <div class="photo"><img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&q=80&w=400" alt="House Photo"></div>
-                    <div class="illustration"><img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&q=80&w=400" alt="House Illustration"></div>
-                </div>
-                <div class="gallery-item reveal" style="transition-delay: 80ms;">
-                    <div class="photo"><img src="https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&q=80&w=400" alt="House Photo"></div>
-                    <div class="illustration"><img src="https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&q=80&w=400" alt="House Illustration"></div>
-                </div>
+        <section class="soul-grid">
+            <div class="soul-card">
+                <span>01.</span>
+                <h3>Architectural DNA</h3>
+                <p>We don't just "filter" photos. We extract the geometry of your specific home to ensure total structural accuracy.</p>
             </div>
-            
-            <div class="reveal" style="margin-top: 60px;">
-                <a href="gallery.html" class="btn btn-secondary">View The Full Gallery</a>
+            <div class="soul-card" style="background-color: var(--fog-blue); border-left: 1px solid var(--ink); border-right: 1px solid var(--ink);">
+                <span>02.</span>
+                <h3>Artisan Soul</h3>
+                <p>Our engine applies wobbly ink lines and variable pen weights, mimicking a master architect's quick field sketch.</p>
             </div>
+            <div class="soul-card">
+                <span>03.</span>
+                <h3>Digital Press</h3>
+                <p>Received as a high-resolution, print-ready file within 24 hours. A timeless heirloom for the place you love.</p>
+            </div>
+        </section>
+
+        <section class="statement">
+            <h3>"A home is not just four walls. It is a <i>collection</i> of moments, redrawn in <i>ink</i>."</h3>
         </section>
 
         <footer>
-            <span class="footer-logo">Hearth & Ink</span>
-            <p class="copyright">A LOADING SCREEN LABS PRODUCTION &bull; MMXXVI</p>
+            <span>ESTABLISHED MMXXVI</span>
+            <span>HEARTH & INK &bull; ARTISAN STUDIO</span>
+            <span>MADE IN MARYLAND</span>
         </footer>
     </div>
 
-    <script>
-        // Scroll Reveal Logic
-        const observerOptions = {
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    </script>
 </body>
 </html>
