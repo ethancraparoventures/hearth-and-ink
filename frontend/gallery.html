@@ -10,6 +10,7 @@
     <style>
         :root {
             --ink: #1E1A15; --charcoal: #3B3128; --parchment: #F3E9D6; --cream: #FAF5EB; --linen: #ECE3D0; --dust: #D6C9B0; --rust: #A0614A; --slate-blue: #5A7382; --mist-blue: #8AAAB8; --shadow: 2px 3px 0 rgba(30,26,21,0.08), 0 1px 12px rgba(30,26,21,0.04);
+            --moss: #4A6350;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -19,7 +20,20 @@
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; opacity: 0.055; mix-blend-mode: multiply;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
-        .container { max-width: 1100px; margin: 0 auto; }
+        .container { max-width: 1100px; margin: 0 auto; position: relative; }
+        
+        /* Full Site Texture Overlay */
+        .container::after {
+            content: "";
+            position: absolute;
+            inset: -40px;
+            opacity: 0.75;
+            pointer-events: none;
+            background-image: url('https://www.transparenttextures.com/patterns/handmade-paper.png');
+            mix-blend-mode: multiply;
+            z-index: 1000;
+        }
+
         nav { padding: 0 0 80px 0; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Playfair Display', serif; font-size: 24px; font-style: italic; text-decoration: none; color: var(--ink); }
         .section-label { font-family: 'Courier Prime', monospace; font-size: 9px; text-transform: uppercase; color: var(--rust); letter-spacing: 0.42em; opacity: 0.65; display: block; margin-bottom: 2rem; text-align: center; }
@@ -30,12 +44,28 @@
         .gallery-pair:last-child { border-bottom: none; }
         
         .photo-label, .ink-label { font-family: 'Courier Prime', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; opacity: 0.4; margin-bottom: 15px; display: block; }
-        .img-wrap img { width: 100%; border: 1px solid var(--dust); }
+        .img-wrap img { width: 100%; border: 1px solid var(--ink); }
         .ink-wrap img { filter: grayscale(100%) contrast(1.2); box-shadow: var(--shadow); border: 8px solid white; }
 
-        .cta-box { margin-top: 100px; padding: 60px; background-color: var(--cream); border: 1px solid var(--dust); text-align: center; box-shadow: var(--shadow); }
-        .btn { display: inline-block; padding: 18px 40px; font-family: 'Special Elite', cursive; font-size: 16px; text-decoration: none; background-color: var(--charcoal); color: var(--parchment); box-shadow: 3px 3px 0 var(--rust); transition: all 0.2s; }
-        .btn:hover { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--rust); }
+        .cta-box { margin-top: 100px; padding: 60px; background-color: var(--cream); border: 1px solid var(--ink); text-align: center; box-shadow: var(--shadow); }
+        
+        /* Buttons with Stamp Feel and Fuzzy Textured Edges */
+        .btn {
+            display: inline-block;
+            padding: 18px 40px;
+            font-family: 'Special Elite', cursive;
+            font-size: 16px;
+            text-decoration: none;
+            background-color: var(--charcoal);
+            color: var(--parchment);
+            transition: all 0.1s;
+            cursor: pointer;
+            border-radius: 2px;
+            /* Fuzzy ink-bleed / paper-grain edge effect */
+            box-shadow: 6px 6px 0 var(--rust), 0 0 2px 1px var(--ink);
+            border: 1px solid var(--ink);
+        }
+        .btn:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--rust); }
     </style>
 </head>
 <body>

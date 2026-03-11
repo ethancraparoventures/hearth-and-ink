@@ -47,7 +47,19 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        .container { max-width: 800px; margin: 0 auto; }
+        .container { max-width: 800px; margin: 0 auto; position: relative; }
+
+        /* Full Site Texture Overlay */
+        .container::after {
+            content: "";
+            position: absolute;
+            inset: -40px;
+            opacity: 0.75;
+            pointer-events: none;
+            background-image: url('https://www.transparenttextures.com/patterns/handmade-paper.png');
+            mix-blend-mode: multiply;
+            z-index: 1000;
+        }
 
         nav { padding: 0 0 60px 0; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Playfair Display', serif; font-size: 24px; font-style: italic; text-decoration: none; color: var(--ink); }
@@ -55,11 +67,10 @@
         .upload-card {
             background-color: var(--cream);
             padding: 60px;
-            border: 1px solid var(--dust);
+            border: 1px solid var(--ink);
             box-shadow: var(--shadow);
             text-align: center;
-            background-image: repeating-linear-gradient(var(--linen) 0px, var(--linen) 1px, transparent 1px, transparent 28px);
-            background-size: 100% 28px;
+            position: relative;
         }
 
         .drop-zone {
@@ -101,14 +112,31 @@
         #result.visible { transform: scaleY(1); opacity: 1; }
 
         .result-frame {
-            background-color: white; padding: 20px; border: 1px solid var(--dust); box-shadow: 10px 10px 40px rgba(30,26,21,0.15); position: relative;
+            background-color: white; padding: 20px; border: 1px solid var(--ink); box-shadow: 10px 10px 40px rgba(30,26,21,0.15); position: relative;
         }
         .result-frame img { width: 100%; height: auto; filter: grayscale(100%) contrast(1.2); }
-        .result-vignette { position: absolute; inset: 20px; box-shadow: inset 0 0 100px rgba(0,0,0,0.05); pointer-events: none; }
 
-        .btn { display: inline-block; padding: 18px 32px; font-family: 'Special Elite', cursive; font-size: 14px; text-decoration: none; cursor: pointer; border-radius: var(--border-radius); transition: all 0.2s ease; border: none; margin-top: 30px; }
-        .btn-download { background-color: var(--slate-blue); color: var(--parchment); box-shadow: 3px 3px 0 var(--moss); }
-        .btn-download:hover { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--moss); }
+        /* Buttons with Stamp Feel and Fuzzy Textured Edges */
+        .btn {
+            display: inline-block;
+            padding: 18px 32px;
+            font-family: 'Special Elite', cursive;
+            font-size: 14px;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: all 0.1s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            position: relative;
+            /* Fuzzy ink-bleed / paper-grain edge effect */
+            box-shadow: 6px 6px 0 var(--rust), 0 0 2px 1px var(--ink);
+            border: 1px solid var(--ink);
+            margin-top: 30px;
+        }
+
+        .btn-download { background-color: var(--slate-blue); color: var(--parchment); box-shadow: 6px 6px 0 var(--moss), 0 0 2px 1px var(--ink); }
+        .btn-download:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--moss); }
 
         .hidden { display: none !important; }
     </style>
@@ -139,7 +167,6 @@
         <div id="result">
             <div class="result-frame">
                 <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&q=80&w=800" alt="Resulting Illustration">
-                <div class="result-vignette"></div>
             </div>
             <div style="text-align: center;">
                 <a href="pricing.html" class="btn btn-download">Download High-Res — $49</a>
@@ -203,7 +230,6 @@
             }
         });
 
-        // Simulate drag and drop
         dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.backgroundColor = 'var(--parchment)'; });
         dropZone.addEventListener('dragleave', () => { dropZone.style.backgroundColor = 'var(--linen)'; });
         dropZone.addEventListener('drop', (e) => {
