@@ -1,19 +1,18 @@
+@import "tailwindcss";
+
 @theme {
-  --font-serif: "Georgia", serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: var(--font-playfair), serif;
+  --font-sans: var(--font-inter), sans-serif;
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --background: #FDFCFB;
-  --foreground: #2D2926;
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  -webkit-font-smoothing: antialiased;
+@layer base {
+  :root {
+    --background: #FAF5EB;
+    --foreground: #1E1A15;
+  }
+  
+  body {
+    background: var(--background);
+    color: var(--foreground);
+  }
 }
