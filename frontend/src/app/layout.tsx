@@ -15,7 +15,7 @@ const mono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: "The Drawn House | Hand-Crafted Architectural Sketches",
-  description: "Your home, immortalized in ink.",
+  description: "Your home, redrawn in ink.",
 };
 
 export default function RootLayout({
