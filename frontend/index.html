@@ -76,6 +76,18 @@
             box-shadow: 12px 12px 0px rgba(30,26,21,0.05);
         }
 
+        /* Luxury Cotton Card Stock Texture Overlay for the whole sheet */
+        .container::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: 0.2;
+            pointer-events: none;
+            background-image: url('https://www.transparenttextures.com/patterns/handmade-paper.png');
+            mix-blend-mode: multiply;
+            z-index: 10;
+        }
+
         /* Ripped Edge Header */
         nav {
             padding: 40px 60px;
@@ -122,19 +134,8 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            background-color: var(--cream);
+            background-color: transparent;
             position: relative;
-        }
-
-        /* Physical Luxury Cotton Card Stock Texture */
-        .hero-content::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            opacity: 0.18;
-            pointer-events: none;
-            background-image: url('https://www.transparenttextures.com/patterns/handmade-paper.png');
-            mix-blend-mode: multiply;
         }
 
         .section-tag {
